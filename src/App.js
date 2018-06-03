@@ -28,12 +28,13 @@ class App extends Component {
 // Invokes two way data binding upon change in the text field
   nameChangedHandler = (event) => {
     this.setState({
-      persons: [
-        { name: 'Joshua', age: 33},
-        { name: event.target.value, age: 29},
-        { name: 'Jessica', age: 86}
-      ]
+      persons:{showPerson: false }
     });
+  }
+
+  togglePersonHandler = () => {
+    const doesShow = this.state.showPerson;
+    this.setState({showPerson: !doesShow});
   }
   
   render() {
@@ -42,8 +43,9 @@ class App extends Component {
     const buttonStyle = {
       backgroundColor: 'blue',
       padding: '10px',
-      borderRadius: '10px',
-      color: 'white'
+      borderRadius: '6px',
+      color: 'white',
+      cursor: 'pointer'
     }
 
     return (
@@ -51,12 +53,17 @@ class App extends Component {
         <h1>Hi, I'm a React App</h1>
         <p>Is this working</p>
         {/* Used the .bind syntax below in place of the function call */}
-        <button style={buttonStyle} onClick={() => this.switchNameHandler('Bob Dole')}>Switch Name</button>
+        <button style={buttonStyle} 
+        // onClick={() => this.switchNameHandler('Bob Dole')}
+        onClick={this.togglePersonHandler}
+        >Switch Name</button>
+
+        { this.state.showPerson ? 
+        <div>
         <Person 
         name={ this.state.persons[0].name} 
         age={ this.state.persons[0].age} 
         />
-        {/* the click handler property can now be used in the Person.js this.switchNameHandler  */}
         
         <Person 
         name={this.state.persons[1].name} 
@@ -70,6 +77,9 @@ class App extends Component {
         name={ this.state.persons[2].name} 
         age={ this.state.persons[2].age}
         />
+
+        </div> : null}
+        
       </div>
     );
   }
