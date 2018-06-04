@@ -7,15 +7,16 @@ class App extends Component {
 
    state = {
      persons: [
-       { name: 'Josh', age: 33},
-       { name: 'Holly', age: 29},
-       { name: 'Jessica', age: 26}
+       { id: '1', name: 'Josh', age: 33},
+       { id: '2', name: 'Holly', age: 29},
+       { id: '3', name: 'Jessica', age: 26}
      ]
    }
 
   deletePersonHandler = (personIndex) => {
    console.log("Selected delete " + personIndex);
-   const persons = this.state.persons;
+  //  const persons = this.state.persons.slice();
+  const persons = [...this.state.persons];
    //Splice creates a new version of the array
    persons.splice(personIndex, 1);
    this.setState({persons: persons});
@@ -24,10 +25,29 @@ class App extends Component {
   
 
 // Invokes two way data binding upon change in the text field
-  nameChangedHandler = (event) => {
-    this.setState({
-      persons:{showPerson: false }
+  nameChangedHandler = (event, id) => {
+
+    //find element based on assigned index, returns if true = found
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
     });
+
+    //person is now the selected person via the index from the findIndex()
+    const person = {
+      ...this.state.persons[personIndex]
+    };
+
+    //Person name is assigned from the event target value
+    person.name = event.target.value;
+
+    //new updated of the persons array initialez with the spread operator same as slice() creating an instance of the array
+    const persons = [...this.state.persons];
+
+    //new person property is updated to the person name update
+    persons[personIndex] = person;
+
+    //The state is updated with the new persons array
+    this.setState({persons: persons});
   }
 
   togglePersonHandler = () => {
@@ -53,7 +73,7 @@ class App extends Component {
       persons = (
         <div>
         {this.state.persons.map((person, index) => {
-         return <Person name={person.name} age={person.age} click={() => this.deletePersonHandler(index)}/>
+         return <Person key={person.id} name={person.name} age={person.age} changed={(event) => this.nameChangedHandler(event, person.id)} click={() => this.deletePersonHandler(index)}/>
         })}
         </div>
       );
