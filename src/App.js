@@ -13,17 +13,15 @@ class App extends Component {
      ]
    }
 
+  deletePersonHandler = (personIndex) => {
+   console.log("Selected delete " + personIndex);
+   const persons = this.state.persons;
+   //Splice creates a new version of the array
+   persons.splice(personIndex, 1);
+   this.setState({persons: persons});
 
-   switchNameHandler = (newName) => {
-    //  DONT DO THIS! this.state.persons[0].name = 'Bob';
-    this.setState({
-      persons: [
-        { name: newName, age: 33},
-        { name: 'Holly', age: 29},
-        { name: 'Jessica', age: 86}
-      ]
-    });
-   }
+  }
+  
 
 // Invokes two way data binding upon change in the text field
   nameChangedHandler = (event) => {
@@ -48,29 +46,15 @@ class App extends Component {
       cursor: 'pointer'
     }
 
+    // Output lists in React
     let persons = null;
 
     if (this.state.showPerson){
       persons = (
         <div>
-        <Person 
-        name={ this.state.persons[0].name} 
-        age={ this.state.persons[0].age} 
-        />
-        
-        <Person 
-        name={this.state.persons[1].name} 
-        age={ this.state.persons[1].age} 
-        click={this.switchNameHandler.bind(this, 'Sally Jones')} 
-        changed={this.nameChangedHandler}
-        >
-        My Hobbies: Watching Netflix</Person>
-
-        <Person 
-        name={ this.state.persons[2].name} 
-        age={ this.state.persons[2].age}
-        />
-
+        {this.state.persons.map((person, index) => {
+         return <Person name={person.name} age={person.age} click={() => this.deletePersonHandler(index)}/>
+        })}
         </div>
       );
     }
