@@ -48,17 +48,10 @@ class App extends Component {
       cursor: 'pointer'
     }
 
-    return (
-      <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <p>Is this working</p>
-        {/* Used the .bind syntax below in place of the function call */}
-        <button style={buttonStyle} 
-        // onClick={() => this.switchNameHandler('Bob Dole')}
-        onClick={this.togglePersonHandler}
-        >Switch Name</button>
+    let persons = null;
 
-        { this.state.showPerson ? 
+    if (this.state.showPerson){
+      persons = (
         <div>
         <Person 
         name={ this.state.persons[0].name} 
@@ -78,8 +71,22 @@ class App extends Component {
         age={ this.state.persons[2].age}
         />
 
-        </div> : null}
-        
+        </div>
+      );
+    }
+
+
+    return (
+      <div className="App">
+        <h1>Hi, I'm a React App</h1>
+        <p>Is this working</p>
+        {/* Used the .bind syntax below in place of the function call */}
+        <button style={buttonStyle} 
+        // onClick={() => this.switchNameHandler('Bob Dole')}
+        onClick={this.togglePersonHandler}
+        >Switch Name</button>
+
+        {persons}
       </div>
     );
   }
