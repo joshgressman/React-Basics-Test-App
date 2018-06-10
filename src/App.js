@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Radium from 'radium';
 import Person from './Person/Person';
 
 
@@ -59,11 +60,15 @@ class App extends Component {
 
     // Inline Styles
     const buttonStyle = {
-      backgroundColor: 'blue',
+      backgroundColor: 'green',
       padding: '10px',
       borderRadius: '6px',
       color: 'white',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }
     }
 
     // Output lists in React
@@ -77,13 +82,31 @@ class App extends Component {
         })}
         </div>
       );
+      buttonStyle.backgroundColor = 'red';
+      
+      //styles implemented with Radium
+      buttonStyle[':hover'] = {
+        backgroundColor: 'salmon',
+        color: 'black'
+      }
+
+    }
+
+    const classes = [];
+
+    if(this.state.persons.length <= 2){
+      classes.push('red');
+    }
+
+    if(this.state.persons.length <= 1){
+      classes.push('bold');
     }
 
 
     return (
       <div className="App">
         <h1>Hi, I'm a React App</h1>
-        <p>Is this working</p>
+        <p className={classes.join(' ')}>Is this working</p>
         {/* Used the .bind syntax below in place of the function call */}
         <button style={buttonStyle} 
         // onClick={() => this.switchNameHandler('Bob Dole')}
@@ -96,4 +119,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Radium(App);
