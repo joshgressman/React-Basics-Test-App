@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Person from './Person/Person';
 import myClasses from './App.css';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
 
@@ -56,28 +57,20 @@ class App extends Component {
   
   render() {
 
-    // Inline Styles
-    const buttonStyle = {
-      backgroundColor: 'green',
-      padding: '10px',
-      borderRadius: '6px',
-      color: 'white',
-      cursor: 'pointer',
-    };
-
+    
     // Output lists in React
     let persons = null;
+    let btnClass = '';
 
     if (this.state.showPerson){
       persons = (
         <div>
         {this.state.persons.map((person, index) => {
-         return <Person key={person.id} name={person.name} age={person.age} changed={(event) => this.nameChangedHandler(event, person.id)} click={() => this.deletePersonHandler(index)}/>
+         return <ErrorBoundary key={person.id}><Person  name={person.name} age={person.age} changed={(event) => this.nameChangedHandler(event, person.id)} click={() => this.deletePersonHandler(index)}/></ErrorBoundary>
         })}
         </div>
       );
-      buttonStyle.backgroundColor = 'red';
-
+      btnClass = myClasses.Red;
     }
 
     const assignedClasses = [];
@@ -97,7 +90,7 @@ class App extends Component {
         <h1>Hi, I'm a React App</h1>
         <p className={assignedClasses.join(' ')}>Is this working</p>
         {/* Used the .bind syntax below in place of the function call */}
-        <button style={buttonStyle} 
+        <button className={btnClass}
         // onClick={() => this.switchNameHandler('Bob Dole')}
         onClick={this.togglePersonHandler}
         >Switch Name</button>
