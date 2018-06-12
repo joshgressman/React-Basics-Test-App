@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
 import Person from './Person/Person';
-
+import myClasses from './App.css';
 
 class App extends Component {
 
@@ -81,22 +80,22 @@ class App extends Component {
 
     }
 
-    const classes = [];
+    const assignedClasses = [];
 
     if(this.state.persons.length <= 2){
-      classes.push('red');
+      assignedClasses.push(myClasses.red);
     }
 
     if(this.state.persons.length <= 1){
-      classes.push('bold');
+      assignedClasses.push(myClasses.bold);
     }
 
 
     return (
  
-      <div className="App">
+      <div className={myClasses.App}>
         <h1>Hi, I'm a React App</h1>
-        <p className={classes.join(' ')}>Is this working</p>
+        <p className={assignedClasses.join(' ')}>Is this working</p>
         {/* Used the .bind syntax below in place of the function call */}
         <button style={buttonStyle} 
         // onClick={() => this.switchNameHandler('Bob Dole')}
