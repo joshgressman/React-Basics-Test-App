@@ -6,6 +6,20 @@ import myClasses from './App.css';
 
 class App extends Component {
 
+  constructor(props){
+    super(props);
+    console.log(props);
+  }
+
+  //Lifecycle hooks
+  componentWillMount() {
+   console.log('[App.js] inside componentWillMount()');
+  }
+
+  componentDidMount() {
+    console.log('[App.js] inside componentDidlMount()');
+  }
+
    state = {
      persons: [
        { id: '1', name: 'Josh', age: 33},
@@ -57,7 +71,7 @@ class App extends Component {
   }
   
   render() {
-
+   console.log('[App.js] component inside render()');
     
     // Output lists in React
     let persons = null;
