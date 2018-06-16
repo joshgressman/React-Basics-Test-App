@@ -1,47 +1,42 @@
-import React, { Component } from 'react';
-import Persons from '../Components/Persons/Persons';
-import Cockpit from '../Components/Cockpit/Cockpit';
-import myClasses from './App.css';
+import React, { PureComponent } from "react";
+import Persons from "../Components/Persons/Persons";
+import Cockpit from "../Components/Cockpit/Cockpit";
+import myClasses from "./App.css";
 
-
-class App extends Component {
-
-  constructor(props){
+class App extends PureComponent {
+  constructor(props) {
     super(props);
     console.log(props);
   }
 
   //Lifecycle hooks
   componentWillMount() {
-   console.log('[App.js] inside componentWillMount()');
+    console.log("[App.js] inside componentWillMount()");
   }
 
   componentDidMount() {
-    console.log('[App.js] inside componentDidlMount()');
+    console.log("[App.js] inside componentDidlMount()");
   }
 
-   state = {
-     persons: [
-       { id: '1', name: 'Josh', age: 33},
-       { id: '2', name: 'Holly', age: 29},
-       { id: '3', name: 'Jessica', age: 26}
-     ]
-   }
+  state = {
+    persons: [
+      { id: "1", name: "Josh", age: 33 },
+      { id: "2", name: "Holly", age: 29 },
+      { id: "3", name: "Jessica", age: 26 }
+    ]
+  };
 
-  deletePersonHandler = (personIndex) => {
-   console.log("Selected delete " + personIndex);
-  //  const persons = this.state.persons.slice();
-  const persons = [...this.state.persons];
-   //Splice creates a new version of the array
-   persons.splice(personIndex, 1);
-   this.setState({persons: persons});
+  deletePersonHandler = personIndex => {
+    console.log("Selected delete " + personIndex);
+    //  const persons = this.state.persons.slice();
+    const persons = [...this.state.persons];
+    //Splice creates a new version of the array
+    persons.splice(personIndex, 1);
+    this.setState({ persons: persons });
+  };
 
-  }
-  
-
-// Invokes two way data binding upon change in the text field
+  // Invokes two way data binding upon change in the text field
   nameChangedHandler = (event, id) => {
-
     //find element based on assigned index, returns if true = found
     const personIndex = this.state.persons.findIndex(p => {
       return p.id === id;
@@ -62,42 +57,41 @@ class App extends Component {
     persons[personIndex] = person;
 
     //The state is updated with the new persons array
-    this.setState({persons: persons});
-  }
+    this.setState({ persons: persons });
+  };
 
   togglePersonHandler = () => {
     const doesShow = this.state.showPerson;
-    this.setState({showPerson: !doesShow});
-  }
-  
+    this.setState({ showPerson: !doesShow });
+  };
+
   render() {
-   console.log('[App.js] component inside render()');
-    
+    console.log("[App.js] component inside render()");
+
     // Output lists in React
     let persons = null;
 
-    if (this.state.showPerson){
-      persons = <Persons 
+    if (this.state.showPerson) {
+      persons = (
+        <Persons
           persons={this.state.persons}
           clicked={this.deletePersonHandler}
           changed={this.nameChangedHandler}
-        />;
+        />
+      );
     }
 
-   
     return (
- 
       <div className={myClasses.App}>
-        <Cockpit 
-        appTitle={this.props.title}
-        showPerson={this.state.showPerson} 
-        persons={this.state.persons}
-        clicked={this.togglePersonHandler}
+        <Cockpit
+          appTitle={this.props.title}
+          showPerson={this.state.showPerson}
+          persons={this.state.persons}
+          clicked={this.togglePersonHandler}
         />
 
         {persons}
       </div>
-   
     );
   }
 }
