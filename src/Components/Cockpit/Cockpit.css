@@ -1,32 +1,31 @@
-
 .red {
-    color: red;
-  }
-  
-  .bold {
-    font-weight: bold;
-  }
-  
-  /* Access all button styles in the App Class */
-  .Cockpit button {
-    border: 1px solid blue;
-    padding: 16px;
-    background-color: green;
-    font: inherit;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .Cockpit button:hover {
-    background-color: lightgreen;
-    color: blue;
-  }
-  
-  .Cockpit button.Red {
-    background-color: red;
-  }
-  
-  .Cockpit button.Red:Hover {
-    background-color: salmon;
-    color: black;
-  }
+  color: red;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+/* Access all button styles in the App Class */
+.Button {
+  border: 1px solid blue;
+  padding: 16px;
+  background-color: green;
+  font: inherit;
+  color: white;
+  cursor: pointer;
+}
+
+.Button:hover {
+  background-color: lightgreen;
+  color: blue;
+}
+
+.Button.Red {
+  background-color: red;
+}
+
+.Button.Red:hover {
+  background-color: salmon;
+  color: black;
+}
