@@ -1,6 +1,8 @@
 import React, { PureComponent } from "react";
 import Persons from "../Components/Persons/Persons";
 import Cockpit from "../Components/Cockpit/Cockpit";
+import WithClass from '../hoc/WithClass';
+
 import myClasses from "./App.css";
 
 class App extends PureComponent {
@@ -82,7 +84,7 @@ class App extends PureComponent {
     }
 
     return (
-      <div className={myClasses.App}>
+      <WithClass myClasses={myClasses.App}>
         <Cockpit
           appTitle={this.props.title}
           showPerson={this.state.showPerson}
@@ -91,7 +93,7 @@ class App extends PureComponent {
         />
 
         {persons}
-      </div>
+        </WithClass>
     );
   }
 }
